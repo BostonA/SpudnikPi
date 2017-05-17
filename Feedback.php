@@ -32,14 +32,14 @@
 
 <?php
 $Unit = "NULL";
-if (htmlspecialchars($_POST["Unit"]) == "Meters") {
+if (htmlspecialchars($_POST["Units"]) == "Meters") {
   if ($_POST["Distance"] == "1"){
     $Unit = " Meter";
   }
   else {
     $Unit = " Meters";
   }}
-if (htmlspecialchars($_POST["Unit"]) == "Feet") {
+if (htmlspecialchars($_POST["Units"]) == "Feet") {
   if ($_POST["Distance"] == "1"){
     $Unit = " Foot";
   }
@@ -49,19 +49,11 @@ if (htmlspecialchars($_POST["Unit"]) == "Feet") {
 }
 ?>
 <center>
-
-Firing at heading &nbsp; <?php echo htmlspecialchars($_POST["Heading"]); ?><br>
-With a distance of&nbsp; <?php echo htmlspecialchars($_POST["Distance"]); echo $Unit?><br>
+Thank you
 <br><br>
-<form action="Feedback.php" method="post">
-  What was the real distance that it flew:<br>
-  <input type="text" name="RealDistance"><br><br>
-  <input onclick="displayResult()" type="radio" name="Units" value="Meters">Metric >  Meters&nbsp;&nbsp;&nbsp;<br><br>
-  <input onclick="displayResult()" type="radio" name="Units" value="Feet">Imperial > Feet &nbsp;&nbsp;&nbsp;
-  <br><br><input type="submit" value="Submit" class="btn btn-primary"/>
+Would you like to fire again?<br>
+<a href="index.html">Yes</a><br>
 
-</form>
-<br><br>
     Created By Boston Abrams<br>
     (c) 2017
 </center>
