@@ -49,79 +49,46 @@
     Created By Boston Abrams<br>
     (c) 2017
 </center>
-
-Chest 1: &nbsp; <?php echo htmlspecialchars($_POST["Chest1"]); ?><br>
-Chest 2: &nbsp; <?php echo htmlspecialchars($_POST["Chest2"]); ?><br>
-Chest 3: &nbsp; <?php echo htmlspecialchars($_POST["Chest3"]); ?><br>
-Chest 4: &nbsp; <?php echo htmlspecialchars($_POST["Chest4"]); ?><br>
-
-Free Chests: &nbsp; <?php echo $_POST["openFreeChests"]; ?>
-
 <?php
-$Chest1 = htmlspecialchars($_POST["Chest1"]);
-$Chest2 = htmlspecialchars($_POST["Chest2"]);
-$Chest3 = htmlspecialchars($_POST["Chest3"]); 
-$Chest4 = htmlspecialchars($_POST["Chest4"]); 
-$myfile = fopen("/tmp/newfile.txt", "a") or die("Unable to open file!");
-$Chests = [$Chest1, $Chest2, $Chest3, $Chest4];
-$txt = implode (" ", $_POST);
-$y = "N";
-$x = htmlspecialchars($_POST["openFreeChests"]);
-$z = 0;
-while ($z < 4) {
-  if ($Chests[$z] == "Silver"){
-    $txt = "03";
-    fwrite($myfile, $txt);
-  }
-  elseif ($Chests[$z] == "Gold"){
-    $txt = "08";
-    fwrite($myfile, $txt);
-  }
-  elseif ($Chests[$z] == "Magic"){
-    $txt = "12";
-    fwrite($myfile, $txt);  
-  }
-  elseif ($Chests[$z] == "Epic"){
-    $txt = "12";
-    fwrite($myfile, $txt);  
-  }
-  elseif ($Chests[$z] == "Giant"){
-    $txt = "12";
-    fwrite($myfile, $txt);  
-  }
-  elseif ($Chests[$z] == "SuperMagic"){
-    $txt = "24";
-    fwrite($myfile, $txt);
-  }
-  elseif ($Chests[$z] == "Legendary"){
-    $txt = "24";
-    fwrite($myfile, $txt); 
-  }
-  elseif ($Chests[$z] == "Empty"){
-    $txt = "00";
-    fwrite($myfile, $txt); 
+$Unit = "NULL";
+if (htmlspecialchars($_POST["Unit"]) == "Meters") {
+  if ($_POST["Distance"] == "1"){
+    $Unit = " Meter";
   }
   else {
-    $txt = "00";
-    fwrite($myfile, $txt); 
+    $Unit = " Meters";
+  }}
+if (htmlspecialchars($_POST["Unit"]) == "Feet") {
+  if ($_POST["Distance"] == "1"){
+    $Unit = " Foot";
   }
-  $txt = " ";
-  fwrite($myfile, $txt); 
-  $z = $z + 1;
-} 
-if ($x == "on"){
-  $y = "Y";
-}
-if ($y == "Y"){
-  $txt = "Y";
-  fwrite($myfile, $txt);
-}
-if ($y == "N") {
-  $txt = "N";
-  fwrite($myfile, $txt);
+  else {
+    $Unit = " Feet";
   }
-$txt = "\n";
-fwrite($myfile, $txt);
+}
+?>
+Firing at heading &nbsp; <?php echo htmlspecialchars($_POST["Heading"]); ?><br>
+With a distance of&nbsp; <?php echo htmlspecialchars($_POST["Distance"]); echo $Unit?><br>
+
+
+<?php
+$Heading = htmlspecialchars($_POST["Heading"]);
+$Distance = htmlspecialchars($_POST["Distance"]);
+$Unit = htmlspecialchars($_POST["Unit"]); 
+$myfile = fopen("DataStore.txt", "a") or die("Unable to open file!");
+if ($Unit == "Feet"){
+  $SUnit = "F";
+}
+else if ($Unit == "Meters"){
+  $SUnit = "M";
+}
+fwrite($myfile, $Heading);
+fwrite($myfile, " ");
+fwrite($myfile, $Distance);
+fwrite($myfile, " ");
+fwrite($myfile, $SUnit);
+fwrite($myfile, "\n");
+
 ?>
 </body>
 </html>

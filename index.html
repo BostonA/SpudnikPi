@@ -41,15 +41,12 @@
   <h1>Spudnik Pi</h1>
   <p>Spuds Away</p></p> 
 </div>
-<form action="Response.php" method="get">
+<form action="Response.php" method="post">
   <div>
     Step #1:
     <br>
     Enter the info of your chests.
   </div>
-  <div class="column">
-    <div class="col-sm-15 col-md-1.5">
-      <div class="thumbnail">
         <h3><center>Questions</center></h3>
         <div class="col-sm-5 col-md-1.5">
           <div class="thumbnail">
@@ -73,15 +70,13 @@
           <div class="thumbnail">
             <div class="caption">
               <center>
-                <input onclick="displayResult()" type="radio" name="Unit" value="Metric">Metric >  Meters&nbsp;&nbsp;&nbsp;<br><br>
-                <input onclick="displayResult()" type="radio" name="Unit" value="Imperial">Imperial > Feet &nbsp;&nbsp;&nbsp;
+                <input onclick="displayResult()" type="radio" name="Unit" value="Meters">Metric >  Meters&nbsp;&nbsp;&nbsp;<br><br>
+                <input onclick="displayResult()" type="radio" name="Unit" value="Feet">Imperial > Feet &nbsp;&nbsp;&nbsp;
               </center>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 <center>
     <input type="submit" value="Fire" class="btn btn-danger"/>
 </form>
