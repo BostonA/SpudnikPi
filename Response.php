@@ -70,19 +70,19 @@ With a distance of&nbsp; <?php echo htmlspecialchars($_POST["Distance"]); echo $
 $Heading = htmlspecialchars($_POST["Heading"]);
 $Distance = htmlspecialchars($_POST["Distance"]);
 $Unit = htmlspecialchars($_POST["Unit"]); 
-$myfile = fopen("DataStore.txt", "a") or die("Unable to open file!");
+$myfile = fopen("Python/DataStore.txt", "a") or die("Unable to open file!");
 if ($Unit == "Feet"){
   $SUnit = "F";
 }
 else if ($Unit == "Meters"){
   $SUnit = "M";
 }
+fwrite($myfile, "\n");
 fwrite($myfile, $Heading);
 fwrite($myfile, " ");
 fwrite($myfile, $Distance);
 fwrite($myfile, " ");
 fwrite($myfile, $SUnit);
-fwrite($myfile, "\n");
 
 ?>
 </body>

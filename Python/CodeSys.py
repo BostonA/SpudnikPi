@@ -1,14 +1,75 @@
-"""
-Yo
-"""
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import time
-"""
-open('/tmp/newfile.txt', 'w+')
-afile = open('/tmp/newfile.txt', 'w')
-afile.write("00 00 00 00 N")
-afile.close()
-Foo
+def ToString (List): # Coverts List to String
+    return ''.join(List)
+while True:
+    Free = False
+    #Code = []
+    Expanded_Line =[]
+    reading_file=open('DataStore.txt', 'r') #Opens File 
+    lines=reading_file.readlines()
+    GoodLine = lines[len(lines) - 1]
+    OldGood = GoodLine
+    oldLinesGood = lines #Sets up lines for comparison
+    print "Waiting For Data..." #Fancy Command Line thing
+    while True:
+        time.sleep(1)
+        reading_file=open('DataStore.txt', 'r')
+        lines=reading_file.readlines()
+        #print lines
+        GoodLine = lines[len(lines) - 1] #GoodLine is the last line of the file!
+        if len(lines) > len(oldLinesGood): # If there are more lines in the new one one was added. So then that line should be read
+            break # So it leaves the inner "While True" Loop
+        OldGood = GoodLine # Resets Vars For comparison
+        oldLinesGood = lines
+    print "Infomation Receved From Server" 
+    x = 0
+    Heading = [] #list of everything in heading.
+    Distance = [] #list of everything in distance. 
+#First Num
+    for char in GoodLine:
+        
+        if char == " ": #Looking for spacebar
+            break
+        x = x + 1
+    y = 0
+    for char in GoodLine:
+        if y == x: #When len is the same as the first loop
+            break #END
+        Heading.append(char) #adding it to a list
+        y = y + 1
+        OldY = y
+# Second Num
+    x = 0
+    y = 0
+    z = False
+    for char in GoodLine:
+        if char == " ": #Skips the first space
+            if z:
+                break # Then it breaks
+            z = True
+        x = x + 1
+    for char in GoodLine:
+        if y == x:
+            break
+        if y> OldY:
+            Distance.append(char) #It only prints after the first space
+        y = y + 1
+    UserUnit = GoodLine[y+1]
+    print ToString(Distance)
+    if UserUnit == "F": # Converstion to Feet
+        Distance = float(ToString(Distance)) * 0.3048
+    elif UserUnit == "M":
+        Distance = ToString(Distance)
+    else:
+        print "Error: Feet Meter Conversion" #Then Just Prints Stuff!
+    print " - All In Meters - "
+    print "Heading at " + ToString(Heading) + "degrees."
+    print "Distance of " + str(Distance)
+    break
+
+time.sleep(1)
+print "Firing!"
 """
 restTime = .5
 flashPattern = [12, 3, 8, 3]
@@ -149,3 +210,4 @@ while True:
         time.sleep(1)
         print "on for 1 sec"
     flashLEDoff()
+"""

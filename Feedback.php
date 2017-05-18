@@ -57,25 +57,20 @@ Would you like to fire again?<br>
     Created By Boston Abrams<br>
     (c) 2017
 </center>
-
 <?php
-$Heading = htmlspecialchars($_POST["Heading"]);
-$Distance = htmlspecialchars($_POST["Distance"]);
-$Unit = htmlspecialchars($_POST["Unit"]); 
-$myfile = fopen("DataStore.txt", "a") or die("Unable to open file!");
+$Distance = htmlspecialchars($_POST["RealDistance"]);
+$Unit = htmlspecialchars($_POST["Units"]); 
+$myfile = fopen("Python/DataStore.txt", "a") or die("Unable to open file!");
 if ($Unit == "Feet"){
   $SUnit = "F";
 }
 else if ($Unit == "Meters"){
   $SUnit = "M";
 }
-fwrite($myfile, $Heading);
 fwrite($myfile, " ");
 fwrite($myfile, $Distance);
 fwrite($myfile, " ");
-fwrite($myfile, $SUnit);
-fwrite($myfile, "\n");
-
+fwrite($myfile, $Sunit);
 ?>
 </body>
 </html>
