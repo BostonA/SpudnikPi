@@ -14,6 +14,15 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+         <li><a href="DoIt.html">Do it!</a></li>
+        <li><a href="About.html">About</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 <div class="jumbotron text-center">
  <h1>Spudnik Pi</h1>
   <p>Spuds Away</p></p> 
@@ -23,14 +32,14 @@
 
 <?php
 $Unit = "NULL";
-if (htmlspecialchars($_POST["Unit"]) == "Meters") {
+if (htmlspecialchars($_POST["Units"]) == "Meters") {
   if ($_POST["Distance"] == "1"){
     $Unit = " Meter";
   }
   else {
     $Unit = " Meters";
   }}
-if (htmlspecialchars($_POST["Unit"]) == "Feet") {
+if (htmlspecialchars($_POST["Units"]) == "Feet") {
   if ($_POST["Distance"] == "1"){
     $Unit = " Foot";
   }
@@ -40,27 +49,17 @@ if (htmlspecialchars($_POST["Unit"]) == "Feet") {
 }
 ?>
 <center>
-
-Firing at heading &nbsp; <?php echo htmlspecialchars($_POST["Heading"]); ?><br>
-With a distance of&nbsp; <?php echo htmlspecialchars($_POST["Distance"]); echo $Unit?><br>
+Thank you
 <br><br>
-<form action="Feedback.php" method="post">
-  What was the real distance that it flew:<br>
-  <input type="text" name="RealDistance"><br><br>
-  <input onclick="displayResult()" type="radio" name="Units" value="Meters">Metric >  Meters&nbsp;&nbsp;&nbsp;<br><br>
-  <input onclick="displayResult()" type="radio" name="Units" value="Feet">Imperial > Feet &nbsp;&nbsp;&nbsp;
-  <br><br><input type="submit" value="Submit" class="btn btn-primary"/>
+Would you like to fire again?<br>
+<a href="index.html">Yes</a><br>
 
-</form>
-<br><br>
     Created By Boston Abrams<br>
     (c) 2017
 </center>
-
 <?php
-$Heading = htmlspecialchars($_POST["Heading"]);
-$Distance = htmlspecialchars($_POST["Distance"]);
-$Unit = htmlspecialchars($_POST["Unit"]); 
+$Distance = htmlspecialchars($_POST["RealDistance"]);
+$Unit = htmlspecialchars($_POST["Units"]); 
 $myfile = fopen("Python/DataStore.txt", "a") or die("Unable to open file!");
 if ($Unit == "Feet"){
   $SUnit = "F";
@@ -68,13 +67,10 @@ if ($Unit == "Feet"){
 else if ($Unit == "Meters"){
   $SUnit = "M";
 }
-fwrite($myfile, "\n");
-fwrite($myfile, $Heading);
 fwrite($myfile, " ");
 fwrite($myfile, $Distance);
 fwrite($myfile, " ");
-fwrite($myfile, $SUnit);
-
+fwrite($myfile, $Sunit);
 ?>
 </body>
 </html>
