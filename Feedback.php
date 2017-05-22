@@ -83,15 +83,6 @@ fwrite($myfile, $Sunit);
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-         <li><a href="DoIt.html">Do it!</a></li>
-        <li><a href="About.html">About</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
 <div class="jumbotron text-center">
  <h1>Spudnik Pi</h1>
   <p>Spuds Away</p></p> 
