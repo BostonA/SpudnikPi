@@ -33,7 +33,7 @@ def ArmSequence (Loaded, Even, Potato1, screen, font, Bigfont, Armed, num,StartF
             Render = Hugefont.render("Fire", 1, (255, 0, 0))
             screen.blit(Render, [-50, -50])
     
-    return Even, num
+    return Even, num, Fire
 def WebsiteControl (screen, font, H, D, OLDHD, Fire, Potato1, StartFire):
     conn = httplib.HTTPConnection("www.lego.com")
     conn.request("HEAD", "/")

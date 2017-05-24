@@ -2,10 +2,15 @@ import pygame, sys, time, Setup, Extra
 def ToString (List): # Coverts List to String
     return ''.join(List)
 KeyEntry = []
+HeadingList = []
+HeadingFirstTime = True
+DistanceFirstTime = True
+DistanceList = []
 num = 3.5
 StartFire = True
 pygame.init()
-screen =  pygame.display.set_mode([800,480], pygame.FULLSCREEN )
+screen =  pygame.display.set_mode([800,480])
+#screen =  pygame.display.set_mode([800,480], pygame.FULLSCREEN )
 screen.fill([105,105,105])
 pygame.display.set_caption('Spudnik Pi')
 a = pygame.image.load('Logo.png')
@@ -18,7 +23,10 @@ Bigfont = pygame.font.Font(None, 100)
 Free = False
 #Code = []
 Expanded_Line =[]
-reading_file=open('/tmp/DataStore.txt', 'r') #Opens File 
+#For Computer
+reading_file=open('DataStore.txt', 'r') #Opens File 
+#For Pi
+#reading_file=open('/tmp/DataStore.txt', 'r') #Opens File 
 lines=reading_file.readlines()
 GoodLine = lines[len(lines) - 1]
 OldGood = GoodLine
@@ -48,6 +56,10 @@ Key0 = font.render("0", 1, (0, 0, 0))
 Key0Pos = [28, 422]
 KeyBK = font.render("<-", 1, (0, 0, 0))
 KeyBKPos = [72, 422]
+HeadingLogo = Smallfont.render("Heading:", 1, (0, 0, 0))
+HeadingLogoPos = [10, 120]
+DistanceLogo = Smallfont.render("Distance:", 1, (0, 0, 0))
+DistanceLogoPos = [180, 120]
 ScreenPos = [15, 220]
 
 pygame.display.flip()
@@ -61,6 +73,9 @@ DoneWait = False
 Potato1 = True
 Tank2 = False
 Fire = False
+HeadingSel = False
+DistanceSel = False
+Adder = False
 while True:
     if DoneWait:
         print "Infomation Receved From Server" 
@@ -109,7 +124,7 @@ while True:
         OldHeadingDistance.append([ToString(Heading),Distance])
         DoneWait = False
     else:
-        reading_file=open('/tmp/DataStore.txt', 'r')
+        reading_file=open('DataStore.txt', 'r')
         lines=reading_file.readlines()
         #print lines
         GoodLine = lines[len(lines) - 1] #GoodLine is the last line of the file!
@@ -135,37 +150,79 @@ while True:
     screen.blit(Key9, Key9Pos)
     screen.blit(Key0, Key0Pos)
     screen.blit(KeyBK, KeyBKPos)
+    
+    screen.blit(HeadingLogo, HeadingLogoPos)
+    screen.blit(DistanceLogo, DistanceLogoPos)
+    pygame.draw.rect(screen, [0, 0, 0], [10,145, 155, 45], 1)
+    pygame.draw.rect(screen, [0, 0, 0], [180,145, 155, 45], 1)
+    if HeadingSel:
+        if HeadingFirstTime:
+            KeyEntry = HeadingList
+            HeadingFirstTime = False
+        else:
+            HeadingList = KeyEntry
+        pygame.draw.rect(screen, [0, 0, 0], [5,120, 165, 75], 1)
+    elif DistanceSel:
+        if DistanceFirstTime:
+            KeyEntry = DistanceList
+            DistanceFirstTime = False
+        else:
+            DistanceList = KeyEntry
+        pygame.draw.rect(screen, [0, 0, 0], [175,120,165, 75], 1)
+    HeadingNumRender = font.render(ToString(HeadingList), 1, (0, 0, 0))
+    screen.blit(HeadingNumRender, [10, 145])
+    DistanceNumRender = font.render(ToString(DistanceList), 1, (0, 0, 0))
+    screen.blit(DistanceNumRender, [180, 145])
     Fire,Potato1,StartFire=Extra.WebsiteControl(screen, Smallfont, ToString(Heading), Distance, OldHeadingDistance, Fire, Potato1, StartFire)
-
-    Even,num = Extra.ArmSequence(Loaded,Even,Potato1, screen, font, Bigfont, Armed, num, StartFire,Tank2, Fire)
+    pygame.draw.circle(screen, [255,0,0], [400,165], 40, 0)
+    pygame.draw.circle(screen, [0,0,0], [400,165], 33, 1)
+    Add = Smallfont.render("Add", 1, (0, 0, 0))
+    screen.blit(Add, [385,153])
+    if Adder:
+        print "Looper"
+        Heading = ToString(HeadingList)
+        Distance = ToString(DistanceList)
+        OldHeadingDistance.append([ToString(HeadingList),ToString(DistanceList)])
+        Adder = False
+    Even,num,Fire = Extra.ArmSequence(Loaded,Even,Potato1, screen, font, Bigfont, Armed, num, StartFire,Tank2, Fire)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a or event.key == pygame.K_ESCAPE:
                 pygame.quit()
+            if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
+                if StartFire:
+                    if Armed:
+                        print "Firing"
+                    if Tank2:
+                        Armed = True
+                        StartFire = False
+                        Potato1 = False
+                        Tank2 = False
+                        Fire = True
+                        num=3.5
+                    elif Potato1:
+                        Tank2 = True
+                    else:
+                        Potato1=True
         elif event.type == pygame.MOUSEBUTTONDOWN:
             #Screen = font.render("1", 1, (0, 0, 0))
             if not StartFire:
-                x = Setup.CheckForButton(event.pos[0], event.pos[1], KeyEntry, StartFire)
-                KeyEntry = x[0]
-                StartFire = x[1]
+                 KeyEntry, StartFire, HeadingSel, DistanceSel,HeadingFirstTime,DistanceFirstTime, Adder= Setup.CheckForButton(event.pos[0], event.pos[1], KeyEntry, StartFire,HeadingSel,DistanceSel,HeadingFirstTime,DistanceFirstTime,Adder)
             if StartFire:
-                print Armed, Tank2, Potato1
                 if Armed:
                     print "Firing"
                 if Tank2:
-                    print "loading"
                     Armed = True
                     StartFire = False
                     Potato1 = False
                     Tank2 = False
+                    Fire = True
                     num=3.5
                 elif Potato1:
-                    print "STAGE 1"
                     Tank2 = True
                 else:
-                    print "HEY"
                     Potato1=True
     pygame.display.flip()
     screen.fill([105,105,105])
@@ -175,6 +232,3 @@ while True:
     else:
         Screenf = font.render("Ov.Flow", 1, (0, 0, 0))
     screen.blit(Screenf, ScreenPos)
-    
-
-                
