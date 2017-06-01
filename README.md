@@ -16,7 +16,9 @@ Setup:
 7. Run "Spudnik Pi - UI.py" - Comment out the not full screen setup and comment in the full screen
 8. Run one request from a device to see it working.
 9. Everything is setup
+
 FAQ:
 
 Why not do full screen first??
+
 If you get an error it will crash and you will need to hard reboot
