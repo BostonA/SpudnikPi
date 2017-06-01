@@ -1,4 +1,4 @@
-import pygame, sys, time, Setup, Extra
+import pygame, sys, time, Setup, Extra, Math
 def ToString (List): # Coverts List to String
     return ''.join(List)
 KeyEntry = []
@@ -121,7 +121,9 @@ while True:
         print " - All In Meters - "
         print "Heading at " + ToString(Heading) + "degrees."
         print "Distance of " + str(Distance)
-        OldHeadingDistance.append([ToString(Heading),Distance])
+        Angle = Math.Math(Distance)
+        OldHeadingDistance.append([ToString(Heading),Distance, Angle])
+        print "Angle " + str(Angle)
         DoneWait = False
     else:
         reading_file=open('DataStore.txt', 'r')
@@ -182,7 +184,9 @@ while True:
         print "Looper"
         Heading = ToString(HeadingList)
         Distance = ToString(DistanceList)
-        OldHeadingDistance.append([ToString(HeadingList),ToString(DistanceList)])
+        print Distance
+        Angle = Math.Math(Distance)
+        OldHeadingDistance.append([ToString(HeadingList),ToString(DistanceList), Angle])
         Adder = False
     Even,num,Fire = Extra.ArmSequence(Loaded,Even,Potato1, screen, font, Bigfont, Armed, num, StartFire,Tank2, Fire)
     for event in pygame.event.get():
@@ -209,7 +213,7 @@ while True:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             #Screen = font.render("1", 1, (0, 0, 0))
             if not StartFire:
-                 KeyEntry, StartFire, HeadingSel, DistanceSel,HeadingFirstTime,DistanceFirstTime, Adder= Setup.CheckForButton(event.pos[0], event.pos[1], KeyEntry, StartFire,HeadingSel,DistanceSel,HeadingFirstTime,DistanceFirstTime,Adder)
+                 KeyEntry, StartFire, HeadingSel, DistanceSel,HeadingFirstTime,DistanceFirstTime,Adder= Setup.CheckForButton(event.pos[0], event.pos[1], KeyEntry,StartFire,HeadingSel,DistanceSel,HeadingFirstTime,DistanceFirstTime,Adder)
             if StartFire:
                 if Armed:
                     print "Firing"

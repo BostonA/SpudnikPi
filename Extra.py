@@ -51,11 +51,12 @@ def WebsiteControl (screen, font, H, D, OLDHD, Fire, Potato1, StartFire):
         pygame.draw.rect(screen, [0,0,0], [630, 75, 165, 125], 1)
         Title = font.render("Request", 1, (0,0,0))
         screen.blit(Title, [635, 80])
-        txt = "Heading: "+str(OLDHD[0][0])
-        Title = font.render(txt, 1, (0,0,0))
+        Title = font.render("Heading: "+str(OLDHD[0][0]), 1, (0,0,0))
         screen.blit(Title, [635, 100])
         Title = font.render("Distance: "+str(OLDHD[0][1]), 1, (0,0,0))
         screen.blit(Title, [635, 120])
+        Title = font.render("Angle: "+str(OLDHD[0][2]), 1, (0,0,0))
+        screen.blit(Title, [635, 140])
         #Fire=True
         #Potato1 = True
         #StartFire = True
@@ -69,6 +70,8 @@ def WebsiteControl (screen, font, H, D, OLDHD, Fire, Potato1, StartFire):
             screen.blit(Title, [635, 230])
             Title = font.render("Distance: "+str(OLDHD[1][1]), 1, (0,0,0))
             screen.blit(Title, [635, 250])
+            Title = font.render("Angle: "+str(OLDHD[1][2]), 1, (0,0,0))
+            screen.blit(Title, [635, 140])
             if len(OLDHD) > 2:
                 pygame.draw.rect(screen, [0,0,0], [630, 335, 165, 125], 1)
                 Title = font.render("Request", 1, (0,0,0))
@@ -78,6 +81,8 @@ def WebsiteControl (screen, font, H, D, OLDHD, Fire, Potato1, StartFire):
                 screen.blit(Title, [635, 360])
                 Title = font.render("Distance: "+str(OLDHD[2][1]), 1, (0,0,0))
                 screen.blit(Title, [635, 380])
+                Title = font.render("Angle: "+str(OLDHD[2][2]), 1, (0,0,0))
+                screen.blit(Title, [635, 140])
     return Fire, Potato1, StartFire
 
   

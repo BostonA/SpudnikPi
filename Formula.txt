@@ -1,3 +1,3 @@
 This is the formula
-y=212x+256
+y=2.22435624354x+1.213245678132456
 The only line the program reads is the second line or the [1] line or whatever.
