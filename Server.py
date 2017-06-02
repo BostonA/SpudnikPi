@@ -14,5 +14,3 @@ def Wait ():
         return False
     OldGood = GoodLine # Resets Vars For comparison
     oldLinesGood = lines
-def Analyze ():
-

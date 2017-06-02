@@ -1,16 +1,45 @@
 import pygame, sys, time, Setup, Extra, Math
+
+## Created By Boston Abrams
+## Escape or enter will quit
+## If you want FullScreen on or not.
+FullScreen = False
+#  ----------------------
+# The FilePath is the position of the data storage location
+FilePath='DataStore.txt'
+# -----------------------
+## Functions
 def ToString (List): # Coverts List to String
     return ''.join(List)
+## Vars - Setup
 KeyEntry = []
 HeadingList = []
+AllHeadingDistance=[]
+DistanceList = []
+Expanded_Line =[]
+num = 3.5
+Heading = "NULL"
+Distance = "NULL"
+StartFire = True
 HeadingFirstTime = True
 DistanceFirstTime = True
-DistanceList = []
-num = 3.5
-StartFire = True
+Even = True
+Loaded = False
+Armed = False
+DoneWait = False
+Potato1 = True
+Tank2 = False
+Fire = False
+HeadingSel = False
+DistanceSel = False
+Adder = False
+Free = False
+## Pygame Setup
 pygame.init()
-screen =  pygame.display.set_mode([800,480])
-#screen =  pygame.display.set_mode([800,480], pygame.FULLSCREEN )
+if not FullScreen:
+    screen =  pygame.display.set_mode([800,480])
+elif FullScreen:
+    screen =  pygame.display.set_mode([800,480], pygame.FULLSCREEN )
 screen.fill([105,105,105])
 pygame.display.set_caption('Spudnik Pi')
 a = pygame.image.load('Logo.png')
@@ -20,18 +49,14 @@ pygame.display.set_icon(b)
 Smallfont = pygame.font.Font(None, 25)
 font = pygame.font.Font(None, 50)
 Bigfont = pygame.font.Font(None, 100)
-Free = False
-#Code = []
-Expanded_Line =[]
-#For Computer
-reading_file=open('DataStore.txt', 'r') #Opens File 
-#For Pi
-#reading_file=open('/tmp/DataStore.txt', 'r') #Opens File 
+## File Setup
+reading_file=open(FilePath, 'r') #Opens File
 lines=reading_file.readlines()
 GoodLine = lines[len(lines) - 1]
 OldGood = GoodLine
 oldLinesGood = lines #Sets up lines for comparison
 print "Waiting For Data..." #Fancy Command Line thing
+# Render Titles
 Title = font.render("SpudNik Pi!", 1, (0, 0, 0))
 TitlePos = [85, 30]
 Key1 = font.render("1", 1, (0, 0, 0))
@@ -61,27 +86,14 @@ HeadingLogoPos = [10, 120]
 DistanceLogo = Smallfont.render("Distance:", 1, (0, 0, 0))
 DistanceLogoPos = [180, 120]
 ScreenPos = [15, 220]
-
 pygame.display.flip()
-Heading = "NULL"
-Distance = "NULL"
-OldHeadingDistance=[]
-Even = True
-Loaded = False
-Armed = False
-DoneWait = False
-Potato1 = True
-Tank2 = False
-Fire = False
-HeadingSel = False
-DistanceSel = False
-Adder = False
 while True:
+    # Reading Files
     if DoneWait:
-        print "Infomation Receved From Server" 
+        print "Infomation Receved From Server"
         x = 0
         Heading = [] #list of everything in heading.
-        Distance = [] #list of everything in distance. 
+        Distance = [] #list of everything in distance.
         #First Num
         for char in GoodLine:
             if char == " ": #Looking for spacebar
@@ -112,7 +124,7 @@ while True:
             y = y + 1
         UserUnit = GoodLine[y+1]
         print ToString(Distance)
-        if UserUnit == "F": # Converstion to Feet
+        if UserUnit == "F": # Converstion from Feet
             Distance = float(ToString(Distance)) * 0.3048
         elif UserUnit == "M":
             Distance = ToString(Distance)
@@ -121,12 +133,12 @@ while True:
         print " - All In Meters - "
         print "Heading at " + ToString(Heading) + "degrees."
         print "Distance of " + str(Distance)
-        Angle = Math.Math(Distance)
-        OldHeadingDistance.append([ToString(Heading),Distance, Angle])
+        Angle = Math.Maths(Distance)
+        AllHeadingDistance.append([ToString(Heading),Distance, Angle])
         print "Angle " + str(Angle)
         DoneWait = False
     else:
-        reading_file=open('DataStore.txt', 'r')
+        reading_file=open(FilePath, 'r')
         lines=reading_file.readlines()
         #print lines
         GoodLine = lines[len(lines) - 1] #GoodLine is the last line of the file!
@@ -152,7 +164,6 @@ while True:
     screen.blit(Key9, Key9Pos)
     screen.blit(Key0, Key0Pos)
     screen.blit(KeyBK, KeyBKPos)
-    
     screen.blit(HeadingLogo, HeadingLogoPos)
     screen.blit(DistanceLogo, DistanceLogoPos)
     pygame.draw.rect(screen, [0, 0, 0], [10,145, 155, 45], 1)
@@ -175,7 +186,7 @@ while True:
     screen.blit(HeadingNumRender, [10, 145])
     DistanceNumRender = font.render(ToString(DistanceList), 1, (0, 0, 0))
     screen.blit(DistanceNumRender, [180, 145])
-    Fire,Potato1,StartFire=Extra.WebsiteControl(screen, Smallfont, ToString(Heading), Distance, OldHeadingDistance, Fire, Potato1, StartFire)
+    Fire,Potato1,StartFire=Extra.WebsiteControl(screen, Smallfont, ToString(Heading), Distance, AllHeadingDistance, Fire, Potato1, StartFire)
     pygame.draw.circle(screen, [255,0,0], [400,165], 40, 0)
     pygame.draw.circle(screen, [0,0,0], [400,165], 33, 1)
     Add = Smallfont.render("Add", 1, (0, 0, 0))
@@ -185,8 +196,8 @@ while True:
         Heading = ToString(HeadingList)
         Distance = ToString(DistanceList)
         print Distance
-        Angle = Math.Math(Distance)
-        OldHeadingDistance.append([ToString(HeadingList),ToString(DistanceList), Angle])
+        Angle = Math.Maths(Distance)
+        AllHeadingDistance.append([ToString(HeadingList),ToString(DistanceList), Angle])
         Adder = False
     Even,num,Fire = Extra.ArmSequence(Loaded,Even,Potato1, screen, font, Bigfont, Armed, num, StartFire,Tank2, Fire)
     for event in pygame.event.get():
@@ -195,6 +206,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a or event.key == pygame.K_ESCAPE:
                 pygame.quit()
+                break
             if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
                 if StartFire:
                     if Armed:
@@ -230,7 +242,7 @@ while True:
                     Potato1=True
     pygame.display.flip()
     screen.fill([105,105,105])
-    
+
     if len(KeyEntry) < 8:
         Screenf = font.render(''.join(KeyEntry), 1, (0, 0, 0))
     else:
