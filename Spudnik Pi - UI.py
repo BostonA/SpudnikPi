@@ -1,7 +1,14 @@
 import pygame, sys, time, Setup, Extra, Math
 
 ## Created By Boston Abrams
-## Escape or enter will quit
+##
+##
+##
+## -------------  Info -------------
+## Escape(esc) or enter will quit
+##
+##
+## -------------  Options  -------------
 ## If you want FullScreen on or not.
 FullScreen = False
 #  ----------------------
