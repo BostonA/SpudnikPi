@@ -6,7 +6,7 @@ while True:
     Free = False
     #Code = []
     Expanded_Line =[]
-    reading_file=open('DataStore.txt', 'r') #Opens File 
+    reading_file=open('DataStore.txt', 'r') #Opens File
     lines=reading_file.readlines()
     GoodLine = lines[len(lines) - 1]
     OldGood = GoodLine
@@ -22,13 +22,13 @@ while True:
             break # So it leaves the inner "While True" Loop
         OldGood = GoodLine # Resets Vars For comparison
         oldLinesGood = lines
-    print "Infomation Receved From Server" 
+    print "Infomation Receved From Server"
     x = 0
     Heading = [] #list of everything in heading.
-    Distance = [] #list of everything in distance. 
+    Distance = [] #list of everything in distance.
 #First Num
     for char in GoodLine:
-        
+
         if char == " ": #Looking for spacebar
             break
         x = x + 1
@@ -66,7 +66,8 @@ while True:
     print " - All In Meters - "
     print "Heading at " + ToString(Heading) + "degrees."
     print "Distance of " + str(Distance)
-    break
+    Angle = Math.Maths(Distance)
+    MotorMove.Control(ToString(Heading), Angle)
 
 time.sleep(1)
 print "Firing!"
