@@ -2,7 +2,12 @@
 import time
 CurrentAnglePos = 0
 CurrentHeadingPos = 0
-#import Math, MotorMove
+OldAnglePos = 1
+OldHeadingPos = 1
+State = "U"
+
+import Math
+#MotorMove
 def ToString (List): # Coverts List to String
     return ''.join(List)
 while True:
@@ -19,8 +24,28 @@ while True:
         time.sleep(1)
         reading_file=open('DataStore.txt', 'r')
         lines=reading_file.readlines()
-        writing_file=open('SendBack.txt','ab')
-        writing_file.write('/n 00 00 U')
+        reading_file.close()
+        if OldAnglePos == CurrentAnglePos and OldHeadingPos == CurrentHeadingPos:
+            pass
+        else:
+            if len(str(CurrentAnglePos)) == 1:
+                StrAnglePos = "00" + str(CurrentAnglePos)
+            elif len (str(CurrentAnglePos)) == 2:
+                StrAnglePos = "0" + str(CurrentAnglePos)
+            else:
+                StrAnglePos = str(CurrentAnglePos)
+            if len(str(CurrentHeadingPos)) == 1:
+                StrHeadingPos = "00" + str(CurrentHeadingPos)
+            elif len (str(CurrentHeadingPos)) == 2:
+                StrHeadingPos = "0" + str(CurrentHeadingPos)
+            else:
+                StrAnglePos = str(CurrentAnglePos)
+            Data = StrAnglePos + " " + StrHeadingPos + " " + State
+            writing_file=open('SendBack.txt','ab')
+            writing_file.write('\n' + Data)
+            writing_file.close()
+            OldAnglePos = CurrentAnglePos
+            OldHeadingPos = CurrentHeadingPos
         GoodLine = lines[len(lines) - 1] #GoodLine is the last line of the file!
         if len(lines) > len(oldLinesGood): # If there are more lines in the new one one was added. So then that line should be read
             break # So it leaves the inner "While True" Loop
@@ -70,7 +95,10 @@ while True:
     print " - All In Meters - "
     print "Heading at " + ToString(Heading) + "degrees."
     print "Distance of " + str(Distance)
-    #Angle = Math.Maths(Distance)
+    Angle = Distance
+    Angle = Math.Maths(Distance)
+    CurrentAnglePos = int(Angle) - CurrentAnglePos
+    CurrentHeadingPos = int(ToString(Heading)) - CurrentHeadingPos
     #MotorMove.Control(ToString(Heading), Angle)
 """
 restTime = .5

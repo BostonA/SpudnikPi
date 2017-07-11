@@ -19,9 +19,9 @@ $myfile = fopen("SendBack.txt", "r") or die("Unable to open Return File!");
 while(!feof($myfile)) {
   $Cool =  fgets($myfile);
 }fclose($myfile);
-$Angle = $Cool[0] . $Cool[1]; 
-$Heading = $Cool[3] . $Cool[4];
-switch ($Cool[6]) {
+$Angle = $Cool[0] . $Cool[1] . $Cool[2]; 
+$Heading = $Cool[4] . $Cool[5] . $Cool[6];
+switch ($Cool[8]) {
     case "F":
         $State = "Firing";
         break;
