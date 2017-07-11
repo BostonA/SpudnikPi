@@ -14,7 +14,28 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<center>Current Positions! Angle: -- Degrees // Heading: -- Degrees // Stat: Firing... </center>
+<?php 
+$myfile = fopen("SendBack.txt", "r") or die("Unable to open Return File!");
+while(!feof($myfile)) {
+  $Cool =  fgets($myfile);
+}fclose($myfile);
+$Angle = $Cool[0] . $Cool[1]; 
+$Heading = $Cool[3] . $Cool[4];
+switch ($Cool[6]) {
+    case "F":
+        $State = "Firing";
+        break;
+    case "L":
+      $State =  "Loaded";
+      break;
+    case "U":
+        $State = "Not Loaded";
+        break;
+    default:
+        $State = "ERROR";
+}
+?>
+<center>Current Positions! Angle: <?php echo $Angle?> Deg. // Heading: <?php echo $Heading?>  // Stat: <?php echo $State?> </center>
 
 <div class="jumbotron text-center">
   <h1>Spudnik Pi</h1>

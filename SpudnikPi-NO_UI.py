@@ -1,5 +1,8 @@
 #import RPi.GPIO as GPIO
 import time
+CurrentAnglePos = 0
+CurrentHeadingPos = 0
+#import Math, MotorMove
 def ToString (List): # Coverts List to String
     return ''.join(List)
 while True:
@@ -16,7 +19,8 @@ while True:
         time.sleep(1)
         reading_file=open('DataStore.txt', 'r')
         lines=reading_file.readlines()
-        #print lines
+        writing_file=open('SendBack.txt','ab')
+        writing_file.write('/n 00 00 U')
         GoodLine = lines[len(lines) - 1] #GoodLine is the last line of the file!
         if len(lines) > len(oldLinesGood): # If there are more lines in the new one one was added. So then that line should be read
             break # So it leaves the inner "While True" Loop
@@ -26,7 +30,7 @@ while True:
     x = 0
     Heading = [] #list of everything in heading.
     Distance = [] #list of everything in distance.
-#First Num
+    #First Num
     for char in GoodLine:
 
         if char == " ": #Looking for spacebar
@@ -66,11 +70,8 @@ while True:
     print " - All In Meters - "
     print "Heading at " + ToString(Heading) + "degrees."
     print "Distance of " + str(Distance)
-    Angle = Math.Maths(Distance)
-    MotorMove.Control(ToString(Heading), Angle)
-
-time.sleep(1)
-print "Firing!"
+    #Angle = Math.Maths(Distance)
+    #MotorMove.Control(ToString(Heading), Angle)
 """
 restTime = .5
 flashPattern = [12, 3, 8, 3]

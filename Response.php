@@ -21,7 +21,6 @@
 </div>
 <br><br><br>
 
-
 <?php
 $Unit = "NULL";
 if (htmlspecialchars($_POST["Unit"]) == "Meters") {
@@ -43,7 +42,7 @@ if (htmlspecialchars($_POST["Unit"]) == "Feet") {
 <center>
 
 Firing at heading &nbsp; <?php echo htmlspecialchars($_POST["Heading"]); ?><br>
-With a distance of&nbsp; <?php echo htmlspecialchars($_POST["Distance"]); echo $Unit?><br>
+With a distance of &nbsp; <?php echo htmlspecialchars($_POST["Distance"]); echo $Unit?><br>
 <br><br>
 <form action="Feedback.php" method="post">
   What was the real distance that it flew:<br>
