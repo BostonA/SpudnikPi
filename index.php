@@ -15,11 +15,18 @@
 </head>
 <body>
 <?php 
+<<<<<<< HEAD
 $myfile = fopen("/tmp/SendBack.txt", "r") or die("Unable to open Return File!");
 while(!feof($myfile)) {
   $Cool =  fgets($myfile);
 }
 fclose($myfile);
+=======
+$myfile = fopen("SendBack.txt", "r") or die("Unable to open Return File!");
+while(!feof($myfile)) {
+  $Cool =  fgets($myfile);
+}fclose($myfile);
+>>>>>>> c3adbb5aaa48278a2d58a4af9509fd3698fdf7f7
 $Angle = $Cool[0] . $Cool[1] . $Cool[2]; 
 $Heading = $Cool[4] . $Cool[5] . $Cool[6];
 switch ($Cool[8]) {

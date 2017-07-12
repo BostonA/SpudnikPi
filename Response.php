@@ -14,6 +14,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<<<<<<< HEAD
+=======
+<br>
+>>>>>>> c3adbb5aaa48278a2d58a4af9509fd3698fdf7f7
 <div class="jumbotron text-center">
  <h1>Spudnik Pi</h1>
   <p>Spuds Away</p></p> 
@@ -60,7 +64,11 @@ With a distance of &nbsp; <?php echo htmlspecialchars($_POST["Distance"]); echo 
 $Heading = htmlspecialchars($_POST["Heading"]);
 $Distance = htmlspecialchars($_POST["Distance"]);
 $Unit = htmlspecialchars($_POST["Unit"]); 
+<<<<<<< HEAD
 $myfile = fopen("/tmp/DataStore.txt", "a") or die("Unable to open file!");
+=======
+$myfile = fopen("DataStore.txt", "a") or die("Unable to open file!");
+>>>>>>> c3adbb5aaa48278a2d58a4af9509fd3698fdf7f7
 if ($Unit == "Feet"){
   $SUnit = "F";
 }
@@ -76,4 +84,8 @@ fwrite($myfile, $SUnit);
 fclose($myfile);
 ?>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> c3adbb5aaa48278a2d58a4af9509fd3698fdf7f7

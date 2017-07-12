@@ -96,7 +96,11 @@ while True:
     print "Heading at " + ToString(Heading) + "degrees."
     print "Distance of " + str(Distance)
     Angle = Distance
+<<<<<<< HEAD
     Angle = Math.Maths(Distance)
+=======
+    #Angle = Math.Maths(Distance)
+>>>>>>> c3adbb5aaa48278a2d58a4af9509fd3698fdf7f7
     CurrentAnglePos = int(Angle) - CurrentAnglePos
     CurrentHeadingPos = int(ToString(Heading)) - CurrentHeadingPos
     #MotorMove.Control(ToString(Heading), Angle)
